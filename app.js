@@ -13,13 +13,15 @@ const displayAdvertisement = (site, funcPref = undefined) => {
     console.log(site);
 
     if (funcPref === 'app') {
-        let message = '|👻 Changes applied!';
-        message = message + ' '.repeat(43 - message.length - 2) + '|';
+        let message = '👻 Changes applied!';
+        createAlert(message);
+        message = '|' + message + ' '.repeat(43 - message.length - 2) + '|';
         console.log(message);
     }
     if (funcPref === 'header') {
-        let message = '|🌵 Changes applied!';
-        message = message + ' '.repeat(43 - message.length - 2) + '|';
+        let message = '🌵 Changes applied!';
+        createAlert(message);
+        message = '|' + message + ' '.repeat(43 - message.length - 2) + '|';
         console.log(message);
     }
     console.log('-------------------------------------------');
@@ -45,6 +47,32 @@ const ToggleHeader = () => {
     displayAdvertisement(site, 'header');
 };
 
+const createAlertHtml = () => {
+    const parent = document.querySelector('body');
+    const label = document.createElement('label');
+    label.className = 'alert-EXMANGA';
+    Add_Custom_Style(`
+        label.alert-EXMANGA {
+            display: none;
+            position: absolute;
+            right: 20px;
+            bottom: 20px;
+            transition: all 0.5s;
+        }
+    `);
+    parent.appendChild(label);
+};
+
+const createAlert = (message) => {
+    const alert = document.querySelector('label.alert-EXMANGA');
+    alert.innerHTML = message;
+    alert.style.display = 'flex';
+
+    setTimeout(() => {
+        alert.innerHTML = '';
+        alert.style.display = 'none';
+    }, 1000)
+} 
 
 
 function APP () {
@@ -197,3 +225,5 @@ runOnKeys(
     () => ToggleHeader(),
     "KeyH"
 );
+
+createAlertHtml();
