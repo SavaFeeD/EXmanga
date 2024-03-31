@@ -8,7 +8,8 @@
       "matches": [
         "https://vk.com/*",
         "https://teletype.in/*",
-        "https://telegra.ph/*"
+        "https://telegra.ph/*",
+        "https://mangabuff.ru/*"
       ],
       "js":[
         "app.js"

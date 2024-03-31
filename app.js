@@ -1,7 +1,56 @@
-const Add_Custom_Style = css => document.head.appendChild(document.createElement("style")).innerHTML = css
+let H_flag = true;
+
+const H_class = {
+    'mangabuff.ru': '.reader__header',
+};
+
+const displayAdvertisement = (site, funcPref = undefined) => {
+    console.log('-------------------------------------------');
+    console.log('|                 EXManga                 |');
+    console.log('-------------------------------------------');
+    
+    console.log('🖇 window.location.href: ');
+    console.log(site);
+
+    if (funcPref === 'app') {
+        let message = '|👻 Changes applied!';
+        message = message + ' '.repeat(43 - message.length - 2) + '|';
+        console.log(message);
+    }
+    if (funcPref === 'header') {
+        let message = '|🌵 Changes applied!';
+        message = message + ' '.repeat(43 - message.length - 2) + '|';
+        console.log(message);
+    }
+    console.log('-------------------------------------------');
+};
+
+const siteName = (site) => {
+    if (site.includes('mangabuff.ru')) return 'mangabuff.ru';
+    else return undefined;
+};
+
+
+const Add_Custom_Style = css => document.head.appendChild(document.createElement("style")).innerHTML = css;
+const ToggleHeader = () => {
+    const site = window.location.href;
+    const name = siteName(site);
+    const headerClass = H_class[name];
+
+    if (H_flag) document.querySelector(headerClass).style.display = 'none';
+    else document.querySelector(headerClass).style.display = 'flex';
+
+    H_flag = !H_flag;
+
+    displayAdvertisement(site, 'header');
+};
+
+
 
 function APP () {
     const site = window.location.href
+
+    displayAdvertisement(site, 'app');
 
     if (site.includes('vk.com/@')) {
         Add_Custom_Style(`
@@ -113,7 +162,12 @@ function APP () {
             }
         `)
     }
+
+    if (site.includes('mangabuff.ru')) {
+        document.querySelectorAll('.rek.rek--mt').forEach((item) => item.style.display = 'none')
+    }
 }
+
 function runOnKeys(func, ...codes) {
     let pressed = new Set();
     document.addEventListener('keydown', function(event) {
@@ -137,4 +191,9 @@ runOnKeys(
     () => APP(),
     "KeyQ",
     "ControlLeft"
+);
+
+runOnKeys(
+    () => ToggleHeader(),
+    "KeyH"
 );
