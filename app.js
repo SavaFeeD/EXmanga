@@ -54,7 +54,7 @@ const createAlertHtml = () => {
     Add_Custom_Style(`
         label.alert-EXMANGA {
             display: none;
-            position: absolute;
+            position: fixed;
             right: 20px;
             bottom: 20px;
             transition: all 0.5s;
